@@ -1,12 +1,14 @@
 const express = require('express');
-
-const userRouter = require('./data/user-router');
+const apiRouter = require('./api/api-router');
+const configureMiddleware = require('./api/configure-middleware')
 
 const server = express();
 
+configureMiddleware(server);
+
 server.use(express.json());
 
-server.use('/api/users', userRouter)
+server.use('/api', apiRouter)
 
 
 
