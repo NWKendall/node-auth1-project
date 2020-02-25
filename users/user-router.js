@@ -19,18 +19,18 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/:id', (req, res) => {
+// router.get('/:id', (req, res) => {
   
-  const id = req.headers.id;
+//   const id = req.headers.id;
 
-  userData
-    .getUserId(id)
-    .then(user => {
-      res.status(200).json(user)
-    })
-    .catch(({name, message, stack}) => {
-      res.status(500).json({ name, message, stack})
-    })
-})
+//   userData
+//     .getUserId(id)
+//     .then(user => {
+//       res.status(200).json(user)
+//     })
+//     .catch(({name, message, stack}) => {
+//       res.status(500).json({ name, message, stack})
+//     })
+// })
 
 module.exports = router;
