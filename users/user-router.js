@@ -17,7 +17,20 @@ router.get('/', (req, res) => {
     .catch(({name, message, stack })=> {
       res.status(500).json({ name, message, stack })
     })
+})
 
+router.get('/:id', (req, res) => {
+  
+  const id = req.headers.id;
+
+  userData
+    .getUserId(id)
+    .then(user => {
+      res.status(200).json(user)
+    })
+    .catch(({name, message, stack}) => {
+      res.status(500).json({ name, message, stack})
+    })
 })
 
 module.exports = router;
