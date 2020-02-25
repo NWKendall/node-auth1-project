@@ -27,10 +27,11 @@ router.post('/login', (req, res) => {
   let { username, password } = req.body;
 
   userData
-    .getUserBy({ username })
+    .getUserLogin({ username })
     .first()
     .then(newUser => {
       if(newUser && bcrypt.compareSync(password, newUser.password)){
+        req.session.user = user; // saves user data to session cookie
         res.status(200).json({ message: 'SUCCESS!'});        
       } else {
         res.status(401).json({ error: 'Invalid Credentials'})
@@ -41,6 +42,19 @@ router.post('/login', (req, res) => {
     })
 })
 
+router.get('/logout', (req, res) => {
+  if(req.session){
+    req.session.destroy(err => {
+      if(err){
+        res.json({ message: "Log out failed"})
+      } else {
+        res.status(200).json({ message: 'logout successful' })
+      }
+    })
+  } else {
+    res.status(200).json({ message: 'no user logged in'})
+  }
+})
 
 
 
